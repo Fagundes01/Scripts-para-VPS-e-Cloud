@@ -1,0 +1,32 @@
+#! / bin / bash
+se [ $ ( id -u )  -eq 0]
+então
+	echo -e " \ 033 [1; 32mNome do novo usuário: \ 033 [0; 37m " ;  leia -p "  " nome
+	echo -e " \ 033 [1; 32mSenha para o usuário $ name : \ 033 [0; 37m " ;  ler -p "  " passar
+	echo -e " \ 033 [1; 32mQuantos dias usuário $ name deve durar: \ 033 [0; 37m " ;  ler -p "  " daysrnf
+	echo -e " \ 033 [1; 32mLimite de logins simultaneos: \ 033 [0; 37m " ;  ler -p "  " limiteuser
+	echo -e " \ 033 [0m "
+	se cat / etc / passwd | grep $ name : | grep -vi [az] $ name  | grep -v [0-9] $ name  > / dev / null
+	então
+		echo -e " \ 033 [1; 31mUsuario $ name ja existe \ 033 [0m "
+	outro
+		válido = $ ( data ' +% C% y-% m-% d ' -d " + $ daysrnf dias " )
+		datexp = $ ( data " +% d /% m /% Y " -d " + $ daysrnf dias " )
+		useradd -M -s / bin / false $ name -e $ válido
+		( echo  " $ pass " ; echo  " $ pass " ) | passwd $ name  2> / dev / null
+		limite $ name  $ limiteuser
+		echo -e " \ 033 [1; 36mUsuario: \ 033 [0m $ name "
+		echo -e " \ 033 [1; 36mSenha: \ 033 [0m $ pass "
+		echo -e " \ 033 [1; 36mExpira: \ 033 [0m $ datexp "
+	    echo  " $ pass "  > / etc / VpsPackdir / senha / $ nome
+	fi
+outro
+	se  echo  $ ( id )  | grep sudo > / dev / null
+	então
+	Echo  " Seu usuário esta no grupo sudo "
+	echo -e " Para virar root execute \ 033 [1; 31msudo su \ 033 [0m "
+	echo -e " Ou execute o criarusuario como sudo. \ 033 [1; 31msudo criarusuario \ 033 [0m "
+	outro
+	echo -e " Vc nao esta como usuário root, nem com seus direitos (sudo) \ nPara virar root execute \ 033 [1; 31msu \ 033 [0m e digite sua senha root "
+	fi
+fi
