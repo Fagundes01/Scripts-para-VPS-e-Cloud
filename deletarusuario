@@ -1,0 +1,42 @@
+#! / bin / bash
+Claro
+echo -e " \ 033 [1; 33m opções de Usuário: \ 033 [1; 30m
+1) Deletar usuário
+2) Deletar e desconectar todos do usuário
+3) Desconectar todos do usuário \ 033 [0m "
+leia -p " : " opção
+ se [ opção $  -eq 1] ;  então
+ leia -p " Qual o nome do usuário: " nome
+ se [ $ ( cat / etc / passwd | grep " ^ $ name : "  | wc -l )  -eq 0] ;  então
+ Echo  " Usuario não existe "
+ Saída
+ fi
+userdel --force $ name  > / dev / null 2> / dev / null
+ Echo  " Usuario $ name foi deletado "
+ Saída
+ fi
+
+ se [ opção $  -eq 2] ;  então
+ leia -p " Qual o nome do usuário: " nome
+ se [ $ ( cat / etc / passwd | grep " ^ $ name : "  | wc -l )  -eq 0] ;  então
+ Echo  " Usuario não existe "
+ Saída
+ fi
+pids = $ ( ps -u $ name  | awk { ' print $ 1 ' } )
+ mata  " $ pids "  > / dev / null 2> / dev / null
+userdel $ name  1> / dev / null 2> / dev / null
+ Echo  " Usuário $ nome para parado e deletado "
+ Saída
+ fi
+
+ se [ opção $  -eq 3] ;  então
+ leia -p " Qual o nome do usuário: " nome
+ se [ $ ( cat / etc / passwd | grep " ^ $ name : "  | wc -l )  -eq 0] ;  então
+ Echo  " Usuario não existe "
+ Saída
+ fi
+pids = $ ( ps -u $ name  | awk { ' print $ 1 ' } )
+ mata  " $ pids "  > / dev / null 2> / dev / null
+ Echo  " Usuario $ nome é parado "
+ Saída
+ fi
